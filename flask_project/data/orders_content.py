@@ -13,4 +13,4 @@ class OrderContent(SqlAlchemyBase):
     quantity = sqlalchemy.Column(sqlalchemy.Integer)
     
     order = sqlalchemy.orm.relation("Order")
-    proudct = sqlalchemy.orm.relation("Product")
+    product = sqlalchemy.orm.relation("Product")

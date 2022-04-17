@@ -5,34 +5,65 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-7">
-            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">{{title}}</h3></div>
                 <div class="card-body">
-                    <form>
+                    <form action="" method="post"  enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="product_name" placeholder="Название товара">
-                            <label for="product_name">Название товара</label>
+                            {{form.name(class="form-control", placeholder="Название товара")}}
+                            {{ form.name.label }}
+                            {% for error in form.name.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
                         <div class="form-floating mb-3">
-
-                            <input type="text" class="form-control" id="product_sku" placeholder="11111">
-                            <label for="product_sku">Артикул</label>
+                            {{form.sku(class="form-control", placeholder="SCU-522")}}
+                            {{ form.sku.label }}
+                            {% for error in form.sku.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
                         <div class="form-floating mb-3">
-
-                            <input type="text" class="form-control" id="product_price" placeholder="1">
-                            <label for="product_price">Цена</label>
+                            {{form.price(class="form-control", placeholder="20")}}
+                            {{ form.price.label }}
+                            {% for error in form.price.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" aria-label="Описание товара" id="product_description"></textarea>
-                            <label for="product_description">Описание товара</label>
+                            {{form.description(class="form-control")}}
+                            {{ form.description.label }}
+                            {% for error in form.description.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="product_image">
+                            {{form.image(class="custom-file-input")}}
+                            {% for error in form.image.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="mt-4 mb-0">
-                            <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">Добавить</a></div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            {{ form.submit(type="submit", class="btn btn-primary") }}
                         </div>
+                        {% if message %}
+                        <div class="alert alert-primary">
+                            {% autoescape false %}
+                            {{ message }}
+                            {% endautoescape %}
+                        </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
