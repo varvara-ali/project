@@ -53,6 +53,9 @@
                                 {{ error }}
                             </div>
                             {% endfor %}
+                            {% if photo %}
+                            <img class="card-img-top" src="{{ url_for('static', filename='products_images/'+ photo) }}"  />
+                            {% endif %}
                         </div>
                         <div class="d-grid gap-2 col-6 mx-auto">
                             {{ form.submit(type="submit", class="btn btn-primary") }}

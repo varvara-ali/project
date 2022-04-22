@@ -7,6 +7,7 @@
             {% for item in items %}
             <div class="col mb-5">
                 <div class="card h-100">
+                    
                     <!-- Product image-->
                     <a href="/card/{{item.id}}">
                         <img class="card-img-top" src="{{ url_for('static', filename='products_images/'+item.image) }}" alt="{{item.name}}" /> </a>
@@ -22,7 +23,12 @@
                    
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Добавить в корзину</a></div>
+                        <form  id="{{item.id}}" action="/add_to_cart"  method="post">
+                        <input type="hidden" name="quantity" value="1">
+                        <input id="product_id" name="product_id" type="hidden" value="{{item.id}}">
+                        <input class="btn btn-outline-dark mt-auto" id="submit" name="submit" type="submit" value="Добавить в корзину">
+                        <!--<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Добавить в корзину</a></div>-->
+                        </form>
                     </div>
                 </div>
             </div>
