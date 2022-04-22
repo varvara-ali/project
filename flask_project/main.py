@@ -60,7 +60,7 @@ def new():
 @app.route("/popular")
 def popular():
     db_sess = db_session.create_session()
-    items = db_sess.query(Product).order_by(Product.arrival_date.desc()).all()
+    items = db_sess.query(OrderContent).order_by(OrderContent.product_id.desc()).all()
     # db_sess = db_session.create_session()
     return render_template("index.html",
                            title='Магазин Шмагазин',
