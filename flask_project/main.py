@@ -10,6 +10,8 @@ from data.orders import OrderContent, Order
 from forms.loginform import LoginForm, RegisterForm
 from forms.product_card import ProductForm, ItemForm
 from werkzeug.utils import secure_filename
+from sqlalchemy import func
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -60,11 +62,17 @@ def new():
 @app.route("/popular")
 def popular():
     db_sess = db_session.create_session()
-    items = db_sess.query(OrderContent).order_by(OrderContent.product_id.desc()).all()
-    # db_sess = db_session.create_session()
+    items = (db_sess
+             .query(OrderContent, func.count(Product.id).label('total'))
+             .join(Product)
+             .group_by(Product)
+             .order_by(desc('total'))
+             .limit(4)
+             .all()
+    )
     return render_template("index.html",
                            title='Магазин Шмагазин',
-                           items=items)
+                           items=[i[0].product for i in items])
 
 
 @app.route("/about")
